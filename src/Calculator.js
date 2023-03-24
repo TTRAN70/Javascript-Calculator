@@ -8,10 +8,15 @@ export default function Calculator() {
   const[currentDisplay, setCurrent] = useState("0");
   const[toggle, setToggle] = useState(true);
   const[calcToggle, setCalc] = useState(true);
+  const[spamZero, setZero] = useState(true);
 
   const numberClick = (event) => {
     event.preventDefault()
     if (event.target.value == 0) {
+      if (currentDisplay == "0" && spamZero) {
+        setTop(prev => prev + event.target.value);
+        setZero(false);
+      }
       if (!calcToggle) {
         setCurrent(prev => "");
         setCalc(true);
@@ -22,7 +27,7 @@ export default function Calculator() {
       }
     }
     else {
-        if (currentDisplay == "0") {
+        if (currentDisplay == "0" && spamZero) {
           setCurrent(prev => "");
           setTop(prev => "");
         }
@@ -40,6 +45,7 @@ export default function Calculator() {
     setCurrent("0");
     setToggle(true);
     setCalc(true);
+    setZero(true);
   }
 
   const decimate = () => {
@@ -59,6 +65,7 @@ export default function Calculator() {
         setTop(prev => prev + event.target.value);
         setCalc(false);
         setToggle(true);
+        setZero(false);
       }
       else {
         setCurrent(event.target.value);
