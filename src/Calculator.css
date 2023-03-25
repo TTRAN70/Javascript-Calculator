@@ -3,12 +3,20 @@
   width: 400px;
   height: 600px;
   position: relative;
+  background: linear-gradient(#F8B195, #F67280, #C06C84, #6C5B7B, #355C7D);
+}
+
+.displayWrapper {
+  width: 100%;
+  height: 120px;
+  position: absolute;
+  opacity: .6;
+  background-color: black;
 }
 
 .buttonContainer {
   width: 100%; 
   height: 80%;
-  border: 1px solid black;
   margin-top: 120px;
   position: relative;
 }
@@ -28,22 +36,44 @@
   height: 20%;
 }
 
+.press {
+  opacity: .6;
+  background-color: black;
+  color: white;
+  filter: brightness(1.5);
+  font-size: 1.3rem;
+  border: none;
+}
+
+.press:hover {
+  border: 2px solid white;
+}
+
+.press:active {
+  background-color: white;
+  color: black;
+}
+
 .top {
   width: 100%;
   height: auto;
   min-height: 30px;
-  background-color: green;
   position: absolute;
   text-align: right;
   top: 30px;
+  color: #328fe0;
+  padding-right: 30px;
+  font-size: 1.4rem;
 }
 
 .bottom {
   width: 100%;
   height: auto;
   min-height: 30px;
-  background-color: blue;
+  color: white;
   position: absolute;
   text-align: right;
-  top: 90px;
+  top: 85px;
+  padding-right: 30px;
+  font-size: 1.8rem;
 }
