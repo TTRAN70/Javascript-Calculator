@@ -35,6 +35,10 @@ export default function Calculator() {
           setCurrent(prev => "");
           setCalc(true);
         }
+        if (currentDisplay == "0" && topDisplay.substring(topDisplay.length-1, topDisplay.length) == "0") {
+          setTop(prev => prev.replace(/.$/, ""));
+          setCurrent(prev => "");
+        }
           setCurrent(prev => prev + event.target.value);
           setTop(prev => prev + event.target.value);
     }
@@ -49,6 +53,13 @@ export default function Calculator() {
   }
 
   const decimate = () => {
+    if (toggle && currentDisplay == "0" && topDisplay == "") {
+      setTop(prev => prev + "0");
+    }
+    if(toggle && isNaN(currentDisplay)) {
+      setCurrent(prev => "0");
+      setTop(prev => prev + "0");
+    }
     if(toggle) {
       setCurrent(prev => prev + ".");
       setTop(prev => prev + ".");
@@ -68,8 +79,19 @@ export default function Calculator() {
         setZero(false);
       }
       else {
-        setCurrent(event.target.value);
-        setTop(prev => prev.replace(/.$/, event.target.value));
+        if(event.target.value == "-") {
+          if(!(topDisplay.substring(topDisplay.length-1, topDisplay.length) == "-")) {
+            setCurrent(event.target.value);
+            setTop(prev => prev + event.target.value);
+          }
+        }
+        else {
+          if (topDisplay.substring(topDisplay.length-1, topDisplay.length) == "-") {
+            setTop(prev => prev.substring(0, prev.length-1));
+          }
+          setCurrent(event.target.value);
+          setTop(prev => prev.replace(/.$/, event.target.value));
+        }
       }
     }
   }
