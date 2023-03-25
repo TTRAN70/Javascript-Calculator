@@ -9,6 +9,8 @@ export default function Calculator() {
   const[toggle, setToggle] = useState(true);
   const[calcToggle, setCalc] = useState(true);
   const[spamZero, setZero] = useState(true);
+  const[neg, setNeg] = useState(true);
+  const[equal, setEqual] = useState(false);
 
   const numberClick = (event) => {
     event.preventDefault()
@@ -20,6 +22,7 @@ export default function Calculator() {
       if (!calcToggle) {
         setCurrent(prev => "");
         setCalc(true);
+        setNeg(true);
       }
       if (!(currentDisplay == "0")) {
         setCurrent(prev => prev + event.target.value);
@@ -34,6 +37,7 @@ export default function Calculator() {
         if (!calcToggle) {
           setCurrent(prev => "");
           setCalc(true);
+          setNeg(true);
         }
         if (currentDisplay == "0" && topDisplay.substring(topDisplay.length-1, topDisplay.length) == "0") {
           setTop(prev => prev.replace(/.$/, ""));
@@ -50,6 +54,7 @@ export default function Calculator() {
     setToggle(true);
     setCalc(true);
     setZero(true);
+    setNeg(true);
   }
 
   const decimate = () => {
@@ -65,6 +70,7 @@ export default function Calculator() {
       setTop(prev => prev + ".");
       setToggle(false);
       setCalc(true);
+      setNeg(true);
     }
   }
 
@@ -78,7 +84,7 @@ export default function Calculator() {
         setToggle(true);
         setZero(false);
       }
-      else {
+      else if (neg) {
         if(event.target.value == "-") {
           if(!(topDisplay.substring(topDisplay.length-1, topDisplay.length) == "-")) {
             setCurrent(event.target.value);
@@ -87,12 +93,39 @@ export default function Calculator() {
         }
         else {
           if (topDisplay.substring(topDisplay.length-1, topDisplay.length) == "-") {
-            setTop(prev => prev.substring(0, prev.length-1));
+            if (isNaN(topDisplay.substring(topDisplay.length-2, topDisplay.length-1))) {
+              setCurrent(event.target.value);
+              setTop(prev => prev.substring(0, prev.length-1));
+              setTop(prev => prev.replace(/.$/, event.target.value));
+            }
+            else {
+              setCurrent(event.target.value);
+              setTop(prev => prev.replace(/.$/, event.target.value));
+            }
           }
-          setCurrent(event.target.value);
-          setTop(prev => prev.replace(/.$/, event.target.value));
+          else {
+            setCurrent(event.target.value);
+            setTop(prev => prev.replace(/.$/, event.target.value));
+          }
         }
       }
+    }
+    else if (event.target.value == "-") {
+      setCurrent(event.target.value);
+      setTop(event.target.value);
+      setCalc(false);
+      setToggle(true);
+      setZero(false);
+      setNeg(false);
+    }
+  }
+
+  const evaluate = () => {
+    if (!(topDisplay == "") && !(topDisplay == "-") && !(isNaN(topDisplay.substring(topDisplay.length-1, topDisplay.length)))) {
+      const format = topDisplay.replaceAll("X", "*");
+      const calc = eval(format);
+      setCurrent(prev => "= " + calc);
+      setEqual(true);
     }
   }
 
@@ -117,7 +150,7 @@ export default function Calculator() {
         <button onClick={e => calculate(e)} className="box" id="add" value="+">+</button>
         <button onClick={e => numberClick(e)} className="zero" id="zero" value="0">0</button>
         <button onClick={() => decimate()} className="box" id="decimal" value=".">.</button>
-        <button onClick={e => calculate(e)} className="box" id="equals" value="=">=</button>
+        <button onClick={() => evaluate()} className="box" id="equals" value="=">=</button>
       </div>
     </div>
   );
