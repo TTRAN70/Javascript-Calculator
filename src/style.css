@@ -17,3 +17,9 @@ body {
   justify-content: center;
   margin-top: 150px;
 }
+
+@media (max-width: 500px) {
+  .mainwrap {
+    margin-top: 70px;
+  }
+}
