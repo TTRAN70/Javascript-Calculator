@@ -12,6 +12,7 @@
   position: absolute;
   opacity: .6;
   background-color: black;
+  font-family: 'Source Code Pro', monospace;
 }
 
 .buttonContainer {
@@ -43,6 +44,7 @@
   filter: brightness(1.5);
   font-size: 1.3rem;
   border: none;
+  font-family: 'Source Code Pro', monospace;
 }
 
 .press:hover {
