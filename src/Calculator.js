@@ -159,9 +159,9 @@ export default function Calculator() {
 
   return (
     <div className="wrapper">
-      <div className="displayWrapper">
-      <div className="top">{topDisplay}</div>
-      <div className="bottom">{currentDisplay}</div>
+      <div id="display" className="displayWrapper">
+        <div className="top">{topDisplay}</div>
+        <div className="bottom">{currentDisplay}</div>
       </div>
       <div className="buttonContainer">
         <button onClick={() => clear()} className="ac press" id="clear" value="AC">AC</button>
