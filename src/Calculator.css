@@ -54,6 +54,7 @@
 .press:active {
   background-color: white;
   color: black;
+  filter: none;
 }
 
 .top {
