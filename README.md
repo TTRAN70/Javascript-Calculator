@@ -1,4 +1,4 @@
-# FreeCodeCamp-Javascript-Calculator
+Javascript-Calculator
 
 Simple Calculator using React, CSS, HTML, and Javascript.
 
